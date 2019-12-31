@@ -1,7 +1,7 @@
 const api: string = 'https://hacker-news.firebaseio.com/v0';
 const json: string = '.json?print=pretty';
 
-interface Item {
+export interface Item {
   id: number;
   deleted?: boolean;
   type?: string;
@@ -19,7 +19,7 @@ interface Item {
   descendants?: number | number[];
 }
 
-interface User {
+export interface User {
   id: string;
   delay?: number;
   created: number;
@@ -67,7 +67,9 @@ export async function fetchUser(id: number): Promise<User> {
 export async function fetchMainPosts(type: string): Promise<Item[]> {
   const res = await fetch(`${api}/${type}stories${json}`);
   const ids = await res.json();
-  if (!ids) throw new Error(`There was an error fetching the ${type} posts.`);
+  console.log(ids);
+  if (ids.error)
+    throw new Error(`There was an error fetching the ${type} posts.`);
 
   const posts = await Promise.all<Item>(ids.slice(0, 50).map(fetchItem));
   return removeDeleted(onlyPosts(removeDead(posts)));
