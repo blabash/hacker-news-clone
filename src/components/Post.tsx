@@ -2,18 +2,10 @@ import React from 'react';
 import { useLocation } from 'react-router';
 import queryString from 'query-string';
 import { Item, fetchItem, fetchComments } from '../utilities/api';
+import { Link } from 'react-router-dom';
+import MetaInfo from './MetaInfo';
 
 interface Props {}
-
-// interface Comment {
-//   by: string;
-//   id: number;
-//   kids: number[];
-//   parent: number;
-//   text: string;
-//   time: number;
-//   type: 'comment';
-// }
 
 const Post: React.FC<Props> = () => {
   const [post, setPost] = React.useState<Item | null>(null);
@@ -28,7 +20,7 @@ const Post: React.FC<Props> = () => {
   React.useEffect(() => {
     async function fetchPost() {
       const post = await fetchItem(Number(id));
-      console.log(post);
+
       if (!post) {
         console.log('derp');
         setPostError('There was an issue fetching this post.');
@@ -50,7 +42,7 @@ const Post: React.FC<Props> = () => {
     }
 
     fetchPost();
-  }, []);
+  }, [id]);
 
   if (postLoading) return <div>Loading...</div>;
 
@@ -59,7 +51,19 @@ const Post: React.FC<Props> = () => {
   return (
     post && (
       <div>
-        <h1>{post.title}</h1>
+        <h1>
+          {post.url ? (
+            <a href={post.url}>{post.title}</a>
+          ) : (
+            <Link to={`/post?id=${post.id}`}></Link>
+          )}
+        </h1>
+        <MetaInfo
+          id={post.id}
+          time={post.time}
+          by={post.by as string}
+          numComments={post.kids ? post.kids.length : 0}
+        />
         {commentsLoading ? (
           <div>Loading comments...</div>
         ) : commentsError ? (
@@ -69,7 +73,14 @@ const Post: React.FC<Props> = () => {
             {comments.map(comment => {
               return (
                 <li key={comment.id}>
-                  <p>{comment.text}</p>
+                  <MetaInfo
+                    id={comment.id}
+                    time={comment.time}
+                    by={comment.by as string}
+                  />
+                  {comment.text && (
+                    <p dangerouslySetInnerHTML={{ __html: comment.text }}></p>
+                  )}
                 </li>
               );
             })}
