@@ -19,7 +19,7 @@ export interface Item {
   descendants?: number | number[];
 }
 
-export interface User {
+export interface IUser {
   id: string;
   delay?: number;
   created: number;
@@ -59,7 +59,7 @@ export async function fetchPosts(ids: number[]): Promise<Item[]> {
   return removeDeleted(onlyPosts(removeDead(posts)));
 }
 
-export async function fetchUser(id: number): Promise<User> {
+export async function fetchUser(id: string): Promise<IUser> {
   const user = await fetch(`${api}/user/${id}${json}`);
   return await user.json();
 }

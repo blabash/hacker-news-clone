@@ -9,7 +9,7 @@ interface Props {
 const Posts: React.FC<Props> = ({ postID }) => {
   const { error, loading, data: posts } = useFetchPosts(postID);
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <div>Loading posts...</div>;
 
   if (error) return <p>{error}</p>;
 

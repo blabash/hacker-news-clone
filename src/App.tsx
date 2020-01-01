@@ -3,6 +3,7 @@ import './App.css';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Post from './components/Post';
+import User from './components/User';
 
 import ThemeContext from './contexts/themeContext';
 
@@ -35,6 +36,7 @@ const App: React.FC = () => {
                   render={() => <Posts postID='new' />}
                 />
                 <Route path='/post' component={Post} />
+                <Route path='/user' component={User} />
                 <Route render={() => <div>404. Not Found.</div>} />
               </Switch>
             </ThemeContext.Provider>

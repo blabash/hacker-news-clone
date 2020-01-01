@@ -22,11 +22,11 @@ const Post: React.FC<Props> = () => {
       const post = await fetchItem(Number(id));
 
       if (!post) {
-        console.log('derp');
         setPostError('There was an issue fetching this post.');
         setPostLoading(false);
       } else {
         setPost(post);
+        setPostError(null);
         setPostLoading(false);
         const comments = await fetchComments(post.kids || []);
         if (!comments) {
@@ -36,6 +36,7 @@ const Post: React.FC<Props> = () => {
           setCommentsLoading(false);
         } else {
           setComments(comments);
+          setCommentsError(null);
           setCommentsLoading(false);
         }
       }
