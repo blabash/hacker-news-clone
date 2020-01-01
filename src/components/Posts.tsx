@@ -1,5 +1,6 @@
 import React from 'react';
 import useFetchPosts from '../customHooks/useFetchPosts';
+import PostListing from './PostListing';
 
 interface Props {
   postID: string | number | number[];
@@ -12,7 +13,14 @@ const Posts: React.FC<Props> = ({ postID }) => {
 
   if (error) return <p>{error}</p>;
 
-  return <div>{JSON.stringify(posts, null, 2)}</div>;
+  return (
+    <ul>
+      {posts &&
+        posts.map(post => {
+          return <PostListing key={post.id} item={post} />;
+        })}
+    </ul>
+  );
 };
 
 export default Posts;

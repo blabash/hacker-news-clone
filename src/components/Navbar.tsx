@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction } from 'react';
+import React from 'react';
 import { NavLink } from 'react-router-dom';
 import ThemeContext from '../contexts/themeContext';
 
@@ -21,9 +21,7 @@ const Navbar: React.FC<Props> = () => {
           </NavLink>
         </li>
       </ul>
-      <button onClick={() => toggleTheme()}>
-        {theme === 'dark' ? '💡' : '🔦'}
-      </button>
+      <button onClick={toggleTheme}>{theme === 'dark' ? '💡' : '🔦'}</button>
     </nav>
   );
 };

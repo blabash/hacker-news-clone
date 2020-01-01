@@ -67,7 +67,7 @@ export async function fetchUser(id: number): Promise<User> {
 export async function fetchMainPosts(type: string): Promise<Item[]> {
   const res = await fetch(`${api}/${type}stories${json}`);
   const ids = await res.json();
-  console.log(ids);
+
   if (ids.error)
     throw new Error(`There was an error fetching the ${type} posts.`);
 

@@ -3,7 +3,7 @@ import { fetchMainPosts, fetchPosts, fetchItem, Item } from '../utilities/api';
 
 export default function useFetchPosts(ids: string | number | number[]) {
   const [loading, setLoading] = React.useState(true);
-  const [data, setData] = React.useState<Item[] | Item | null>(null);
+  const [data, setData] = React.useState<Item[] | null>(null);
   const [error, setError] = React.useState<string | null>(null);
 
   React.useEffect(() => {
@@ -25,7 +25,7 @@ export default function useFetchPosts(ids: string | number | number[]) {
       case 'number':
         fetchItem(ids as number)
           .then(post => {
-            setData(post);
+            setData([post]);
             setError(null);
             setLoading(false);
           })

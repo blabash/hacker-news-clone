@@ -1,7 +1,8 @@
-import React, { Dispatch, SetStateAction } from 'react';
+import React from 'react';
 import './App.css';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
+import Post from './components/Post';
 
 import ThemeContext from './contexts/themeContext';
 
@@ -12,7 +13,6 @@ const App: React.FC = () => {
 
   const toggleTheme = () => {
     setTheme(theme => {
-      console.log(theme);
       return theme === 'dark' ? 'light' : 'dark';
     });
   };
@@ -34,6 +34,7 @@ const App: React.FC = () => {
                   exact
                   render={() => <Posts postID='new' />}
                 />
+                <Route path='/post' component={Post} />
                 <Route render={() => <div>404. Not Found.</div>} />
               </Switch>
             </ThemeContext.Provider>
