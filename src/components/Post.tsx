@@ -73,7 +73,7 @@ const Post: React.FC<Props> = () => {
           <ul>
             {comments.map(comment => {
               return (
-                <li key={comment.id}>
+                <li className='post-comment' key={comment.id}>
                   <MetaInfo
                     id={comment.id}
                     time={comment.time}

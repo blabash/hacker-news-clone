@@ -8,20 +8,25 @@ const Navbar: React.FC<Props> = () => {
   const { theme, toggleTheme } = React.useContext(ThemeContext);
 
   return (
-    <nav>
-      <ul>
-        <li>
-          <NavLink to='/' exact activeStyle={{ color: 'green' }}>
+    <nav className={`navbar navbar-${theme}`}>
+      <ul className='navbar-links'>
+        <li className='navbar-link'>
+          <NavLink to='/' exact activeStyle={{ color: 'red' }}>
             Top
           </NavLink>
         </li>
         <li>
-          <NavLink to='/new' activeStyle={{ color: 'green' }}>
+          <NavLink to='/new' activeStyle={{ color: 'red' }}>
             New
           </NavLink>
         </li>
       </ul>
-      <button onClick={toggleTheme}>{theme === 'dark' ? '💡' : '🔦'}</button>
+      <button
+        className={`navbar-lightswitch navbar-lightswitch-${theme}`}
+        onClick={toggleTheme}
+      >
+        {theme === 'dark' ? '💡' : '🔦'}
+      </button>
     </nav>
   );
 };
