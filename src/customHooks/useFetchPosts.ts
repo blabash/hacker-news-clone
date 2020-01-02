@@ -1,12 +1,16 @@
 import React from 'react';
 import { fetchMainPosts, fetchPosts, fetchItem, Item } from '../utilities/api';
 
-export default function useFetchPosts(ids: string | number | number[]) {
+export default function useFetchPosts(
+  ids: string | number | number[],
+  showLoading: boolean
+) {
   const [loading, setLoading] = React.useState(true);
   const [data, setData] = React.useState<Item[] | null>(null);
   const [error, setError] = React.useState<string | null>(null);
 
   React.useEffect(() => {
+    if (showLoading) setLoading(true);
     let idsType = typeof ids;
     switch (idsType) {
       case 'string':
@@ -51,7 +55,7 @@ export default function useFetchPosts(ids: string | number | number[]) {
       default:
         throw new Error('Could not fetch posts for that id.');
     }
-  }, [ids]);
+  }, [ids, showLoading]);
 
   return {
     loading,

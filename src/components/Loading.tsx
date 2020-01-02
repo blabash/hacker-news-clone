@@ -2,9 +2,10 @@ import React from 'react';
 
 interface Props {
   text?: string;
+  speed?: number;
 }
 
-const Loading: React.FC<Props> = ({ text = 'Loading' }) => {
+const Loading: React.FC<Props> = ({ text = 'Loading', speed = 150 }) => {
   const [loadingText, setLoadingText] = React.useState(text);
 
   React.useEffect(() => {
@@ -12,10 +13,10 @@ const Loading: React.FC<Props> = ({ text = 'Loading' }) => {
       setLoadingText(l => {
         return l === text + '...' ? text : l + '.';
       });
-    }, 150);
+    }, speed);
 
     return () => clearInterval(id);
-  }, [text]);
+  }, [text, speed]);
 
   return (
     <div>

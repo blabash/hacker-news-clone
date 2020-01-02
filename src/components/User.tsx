@@ -50,7 +50,10 @@ const User: React.FC<Props> = () => {
           </span>
         </div>
         <h2>Posts</h2>
-        <Posts postID={user.submitted.slice(0, submittedSlice)} />
+        <Posts
+          postID={user.submitted.slice(0, submittedSlice)}
+          showLoading={false}
+        />
         {submittedSlice < userSubmittedCount && (
           <button onClick={() => setSubmittedSlice(s => s + 50)}>
             Load More

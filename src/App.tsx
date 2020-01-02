@@ -8,6 +8,7 @@ import User from './components/User';
 import ThemeContext from './contexts/themeContext';
 
 import Posts from './components/Posts';
+import Loading from './components/Loading';
 
 const App: React.FC = () => {
   const [theme, setTheme] = React.useState('dark');
@@ -28,17 +29,19 @@ const App: React.FC = () => {
             <ThemeContext.Provider value={value}>
               <Navbar />
 
-              <Switch>
-                <Route path='/' exact render={() => <Posts postID='top' />} />
-                <Route
-                  path='/new'
-                  exact
-                  render={() => <Posts postID='new' />}
-                />
-                <Route path='/post' component={Post} />
-                <Route path='/user' component={User} />
-                <Route render={() => <div>404. Not Found.</div>} />
-              </Switch>
+              <React.Suspense fallback={Loading}>
+                <Switch>
+                  <Route path='/' exact render={() => <Posts postID='top' />} />
+                  <Route
+                    path='/new'
+                    exact
+                    render={() => <Posts postID='new' />}
+                  />
+                  <Route path='/post' component={Post} />
+                  <Route path='/user' component={User} />
+                  <Route render={() => <div>404. Not Found.</div>} />
+                </Switch>
+              </React.Suspense>
             </ThemeContext.Provider>
           </Router>
         </div>
