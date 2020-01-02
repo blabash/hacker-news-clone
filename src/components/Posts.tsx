@@ -1,6 +1,7 @@
 import React from 'react';
 import useFetchPosts from '../customHooks/useFetchPosts';
 import PostListing from './PostListing';
+import Loading from './Loading';
 
 interface Props {
   postID: string | number | number[];
@@ -9,7 +10,7 @@ interface Props {
 const Posts: React.FC<Props> = ({ postID }) => {
   const { error, loading, data: posts } = useFetchPosts(postID);
 
-  if (loading) return <div>Loading posts...</div>;
+  if (loading) return <Loading text='Loading posts' />;
 
   if (error) return <p>{error}</p>;
 

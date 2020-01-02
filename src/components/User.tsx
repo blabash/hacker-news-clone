@@ -3,6 +3,7 @@ import queryString from 'query-string';
 import { useLocation } from 'react-router';
 import { fetchUser, IUser } from '../utilities/api';
 import Posts from './Posts';
+import Loading from './Loading';
 
 interface Props {}
 
@@ -31,7 +32,7 @@ const User: React.FC<Props> = () => {
     getUser();
   }, [userID]);
 
-  if (loading) return <div>Loading user...</div>;
+  if (loading) return <Loading text='Loading user' />;
 
   if (error) return <p>{error}</p>;
 
@@ -50,7 +51,7 @@ const User: React.FC<Props> = () => {
         </div>
         <h2>Posts</h2>
         <Posts postID={user.submitted.slice(0, submittedSlice)} />
-        {submittedSlice <= userSubmittedCount && (
+        {submittedSlice < userSubmittedCount && (
           <button onClick={() => setSubmittedSlice(s => s + 50)}>
             Load More
           </button>
